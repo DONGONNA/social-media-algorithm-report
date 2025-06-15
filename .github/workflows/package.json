@@ -1,0 +1,13 @@
+{
+  "name": "social-media-algorithm-report",
+  "version": "1.0.0",
+  "description": "자동화된 소셜미디어 알고리즘 보고서",
+  "main": "update.js",
+  "scripts": {
+    "update": "node update.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12"
+  }
+}
