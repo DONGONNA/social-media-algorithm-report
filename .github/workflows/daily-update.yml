@@ -19,6 +19,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
         
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -37,8 +38,13 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git pull origin main
+        git stash
+        git pull origin main --rebase
+        git stash pop || true
         git add index.html
-        git diff --staged --quiet || git commit -m "📊 Daily report update - $(date +'%Y-%m-%d')"
-        git push origin main
-
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "📊 Daily report update - $(date +'%Y-%m-%d %H:%M:%S')"
+          git push origin main
+        fi
