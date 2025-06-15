@@ -1,0 +1,36 @@
+name: Daily Algorithm Report Update
+
+on:
+  schedule:
+    # 매일 한국시간 00:00 (UTC 15:00)
+    - cron: '0 15 * * *'
+  workflow_dispatch: # 수동 실행 가능
+
+jobs:
+  update-report:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: |
+        npm install axios cheerio
+        
+    - name: Update report
+      run: |
+        node update.js
+        
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add index.html
+        git commit -m "📊 Daily report update - $(date +'%Y-%m-%d')" || exit 0
+        git push
