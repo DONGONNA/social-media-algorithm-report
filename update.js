@@ -588,8 +588,7 @@ function generateAdvancedHTML(date, youtube, instagram, tiktok) {
                                     <div>📅 ${post.created} ${post.createdTime}</div>
                                     <div>👤 u/${post.author}</div>
                                     <div>📍 r/${post.subreddit}</div>
-                                    <div class="upvote-indicator">↗ ${Math.
-round(post.upvoteRatio * 100)}% 추천</div>
+                                    <div class="upvote-indicator">↗ ${Math.round(post.upvoteRatio * 100)}% 추천</div>
                                 </div>
                                 <div class="post-footer">
                                     <div class="post-stats">
